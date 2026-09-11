@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net" modified="2026-09-12T00:00:00.000Z" agent="python-generator" version="24.0.0" type="device">
+  <diagram id="finserv-zt-network" name="Zero-Trust Network Flow">
+    <mxGraphModel dx="1600" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2150" pageHeight="1800" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" value="FinServ Digital — Zero-Trust Kubernetes Network Flow" style="text;html=1;align=center;verticalAlign=middle;fontSize=22;fontStyle=1;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="40" y="10" width="1550" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="subtitle" value="Day 5 | Default-Deny Segmentation, Explicit Service Dependencies &amp; Controlled Egress" style="text;html=1;align=center;verticalAlign=middle;fontSize=13;fontStyle=0;fontColor=#555555;" vertex="1" parent="1">
+          <mxGeometry x="40" y="50" width="1550" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="footer" value="Phase 1 — Foundation &amp; Architecture | Day 5 | Network Policy Specification" style="text;html=1;align=center;verticalAlign=middle;fontSize=11;fontStyle=0;fontColor=#777777;" vertex="1" parent="1">
+          <mxGeometry x="40" y="1750" width="2000" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="zt_boundary" value="ZERO-TRUST APPLICATION NETWORK
+DEFAULT DENY: ALL Ingress + Egress denied unless explicitly allowed" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#B85450;dashed=1;strokeWidth=3;fontSize=13;fontStyle=1;verticalAlign=top;align=left;spacingLeft=10;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="40" y="190" width="1590" height="1120" as="geometry" />
+        </mxCell>
+        <mxCell id="dom_platform" value="PLATFORM DOMAIN
+namespace: finserv-prod-platform
+DEFAULT DENY (Ingress/Egress)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#DAE8FC;strokeColor=#6C8EBF;dashed=1;strokeWidth=2;fontSize=10;fontStyle=1;verticalAlign=top;align=left;spacingLeft=10;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="590" y="230" width="440" height="232" as="geometry" />
+        </mxCell>
+        <mxCell id="dom_payments" value="PAYMENTS DOMAIN
+namespace: finserv-prod-payments
+DEFAULT DENY (Ingress/Egress)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#D5E8D4;strokeColor=#82B366;dashed=1;strokeWidth=2;fontSize=10;fontStyle=1;verticalAlign=top;align=left;spacingLeft=10;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="70" y="500" width="400" height="372" as="geometry" />
+        </mxCell>
+        <mxCell id="dom_customer" value="CUSTOMER DOMAIN
+namespace: finserv-prod-customer
+DEFAULT DENY (Ingress/Egress)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFF2CC;strokeColor=#D6B656;dashed=1;strokeWidth=2;fontSize=10;fontStyle=1;verticalAlign=top;align=left;spacingLeft=10;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="1150" y="500" width="400" height="372" as="geometry" />
+        </mxCell>
+        <mxCell id="dom_risk" value="RISK &amp; COMPLIANCE DOMAIN
+namespace: finserv-prod-risk
+DEFAULT DENY (Ingress/Egress)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#E1D5E7;strokeColor=#9673A6;dashed=1;strokeWidth=2;fontSize=10;fontStyle=1;verticalAlign=top;align=left;spacingLeft=10;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="590" y="912" width="440" height="370" as="geometry" />
+        </mxCell>
+        <mxCell id="kube_system" value="kube-system namespace (infrastructure)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFE6CC;strokeColor=#D79B00;dashed=1;strokeWidth=2;fontSize=10;fontStyle=1;verticalAlign=top;align=left;spacingLeft=10;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="70" y="1330" width="380" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="ext_apis" value="APPROVED EXTERNAL APIs
+(outside Kubernetes cluster)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#666666;dashed=1;strokeWidth=2;fontSize=10;fontStyle=1;verticalAlign=top;align=left;spacingLeft=10;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="1660" y="500" width="440" height="570" as="geometry" />
+        </mxCell>
+        <mxCell id="blocked_area" value="BLOCKED BY DEFAULT (illustrative attempted flows)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F8CECC;strokeColor=#B85450;dashed=1;strokeWidth=2;fontSize=10;fontStyle=1;verticalAlign=top;align=left;spacingLeft=10;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="480" y="1330" width="420" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="env_panel" value="ENVIRONMENT ISOLATION" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#666666;dashed=1;strokeWidth=2;fontSize=10;fontStyle=1;verticalAlign=top;align=left;spacingLeft=10;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="940" y="1330" width="260" height="260" as="geometry" />
+        </mxCell>
+        <mxCell id="legend_box" value="LEGEND" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#333333;dashed=1;strokeWidth=2;fontSize=10;fontStyle=1;verticalAlign=top;align=left;spacingLeft=10;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="1240" y="1330" width="250" height="260" as="geometry" />
+        </mxCell>
+        <mxCell id="ext_users" value="External Users
+(Internet)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#333333;fontSize=10;fontStyle=1;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="900" y="100" width="200" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="api-gateway" value="api-gateway
+(cluster entry point)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DAE8FC;strokeColor=#6C8EBF;fontSize=10;fontStyle=1;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="610" y="292" width="190" height="46" as="geometry" />
+        </mxCell>
+        <mxCell id="service-registry" value="service-registry" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DAE8FC;strokeColor=#6C8EBF;fontSize=10;fontStyle=0;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="820" y="292" width="190" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="configuration" value="configuration" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DAE8FC;strokeColor=#6C8EBF;fontSize=10;fontStyle=0;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="610" y="346" width="190" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="health-monitor" value="health-monitor" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DAE8FC;strokeColor=#6C8EBF;fontSize=10;fontStyle=0;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="820" y="346" width="190" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="report-generator" value="report-generator" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DAE8FC;strokeColor=#6C8EBF;fontSize=10;fontStyle=0;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="610" y="400" width="190" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="payment-gateway" value="payment-gateway" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#D5E8D4;strokeColor=#82B366;fontSize=10;fontStyle=1;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="90" y="562" width="360" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="transaction-processor" value="transaction-processor" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#D5E8D4;strokeColor=#82B366;fontSize=10;fontStyle=0;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="90" y="622" width="360" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="settlement-engine" value="settlement-engine" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#D5E8D4;strokeColor=#82B366;fontSize=10;fontStyle=0;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="90" y="682" width="360" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="refund-service" value="refund-service" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#D5E8D4;strokeColor=#82B366;fontSize=10;fontStyle=0;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="90" y="742" width="360" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="recurring-payments-scheduler" value="recurring-payments-scheduler" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#D5E8D4;strokeColor=#82B366;fontSize=10;fontStyle=0;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="90" y="802" width="360" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="user-management" value="user-management" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF2CC;strokeColor=#D6B656;fontSize=10;fontStyle=1;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1170" y="562" width="360" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="kyc-verification" value="kyc-verification" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF2CC;strokeColor=#D6B656;fontSize=10;fontStyle=0;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1170" y="622" width="360" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="notification" value="notification" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF2CC;strokeColor=#D6B656;fontSize=10;fontStyle=0;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1170" y="682" width="360" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="customer-support" value="customer-support" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF2CC;strokeColor=#D6B656;fontSize=10;fontStyle=0;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1170" y="742" width="360" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="preference-manager" value="preference-manager" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF2CC;strokeColor=#D6B656;fontSize=10;fontStyle=0;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1170" y="802" width="360" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="fraud-detection" value="fraud-detection" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E1D5E7;strokeColor=#9673A6;fontSize=10;fontStyle=0;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="610" y="972" width="190" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="aml-screening" value="aml-screening" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E1D5E7;strokeColor=#9673A6;fontSize=10;fontStyle=0;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="820" y="972" width="190" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="risk-scoring" value="risk-scoring" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E1D5E7;strokeColor=#9673A6;fontSize=10;fontStyle=0;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="610" y="1032" width="190" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="compliance-reporting" value="compliance-reporting" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E1D5E7;strokeColor=#9673A6;fontSize=10;fontStyle=0;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="820" y="1032" width="190" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="audit-log-aggregator" value="audit-log-aggregator
+(central audit sink)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E1D5E7;strokeColor=#9673A6;fontSize=10;fontStyle=1;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="610" y="1092" width="400" height="46" as="geometry" />
+        </mxCell>
+        <mxCell id="kube-dns" value="kube-dns
+UDP 53 / TCP 53" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFE6CC;strokeColor=#D79B00;fontSize=10;fontStyle=1;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="100" y="1378" width="320" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ext_payment_api" value="Payment Processor API
+TCP 443
+CIDR: 203.0.113.0/28" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#666666;fontSize=10;fontStyle=0;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1690" y="560" width="380" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="ext_aml_api" value="AML Provider API
+TCP 443
+CIDR: 198.51.100.0/28" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#666666;fontSize=10;fontStyle=0;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1690" y="660" width="380" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="ext_notif_api" value="Notification Provider
+TCP 443
+CIDR: 203.0.113.16/28" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#666666;fontSize=10;fontStyle=0;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1690" y="760" width="380" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="ext_note1" value="Documentation CIDRs only —
+replace with approved provider
+CIDRs before production deployment." style="text;html=1;align=left;verticalAlign=middle;fontSize=9;fontStyle=2;fontColor=#B85450;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="1690" y="850" width="380" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ext_note2" value="⚠ NO blanket 0.0.0.0/0 egress." style="text;html=1;align=left;verticalAlign=middle;fontSize=9;fontStyle=2;fontColor=#B85450;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="1690" y="920" width="380" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="dev_pod" value="Compromised dev Pod" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F8CECC;strokeColor=#B85450;fontSize=10;fontStyle=1;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="500" y="1378" width="200" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="blk_prod_db" value="Production database" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F8CECC;strokeColor=#B85450;fontSize=9;fontStyle=0;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="730" y="1358" width="150" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="blk_ext_ip" value="Arbitrary external IP" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F8CECC;strokeColor=#B85450;fontSize=9;fontStyle=0;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="730" y="1408" width="150" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="blk_prod_svc" value="Unauthorized
+production service" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F8CECC;strokeColor=#B85450;fontSize=9;fontStyle=0;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="730" y="1458" width="150" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="env_dev" value="DEV" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#666666;fontSize=10;fontStyle=1;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="990" y="1370" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="env_staging" value="STAGING" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#666666;fontSize=10;fontStyle=1;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="990" y="1445" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="env_prod" value="PRODUCTION" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#666666;fontSize=10;fontStyle=1;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="990" y="1520" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="callout_0" value="1. Default Deny
+Ingress and egress denied unless explicitly allowed." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#999999;fontSize=9;fontStyle=0;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1530" y="1330" width="400" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="callout_1" value="2. Least Privilege
+Only required source → destination → port combinations are permitted." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#999999;fontSize=9;fontStyle=0;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1530" y="1392" width="400" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="callout_2" value="3. DNS Exception
+TCP/UDP 53 to kube-dns only." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#999999;fontSize=9;fontStyle=0;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1530" y="1454" width="400" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="callout_3" value="4. External Egress Restriction
+Specific approved CIDRs only." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#999999;fontSize=9;fontStyle=0;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1530" y="1516" width="400" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="callout_4" value="5. Auditability
+Every allow rule has a documented service/business rationale." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#999999;fontSize=9;fontStyle=0;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1530" y="1578" width="400" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="policy_note" value="Two-sided policy contract: source EGRESS allow + destination INGRESS allow required for every arrow below" style="text;html=1;align=left;verticalAlign=middle;fontSize=9;fontStyle=2;fontColor=#B85450;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="90" y="460" width="800" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="legend_text" value="— solid arrow = authorized application flow
+- - dashed arrow = infrastructure dependency
+X = explicitly blocked / denied flow
+[ ] boundary = namespace / trust boundary" style="text;html=1;align=left;verticalAlign=top;fontSize=9;whiteSpace=wrap;spacingLeft=10;spacingTop=30;" vertex="1" parent="1">
+          <mxGeometry x="1240" y="1330" width="250" height="260" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" value="HTTPS 443" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#333333;strokeWidth=2;endArrow=block;endFill=1;dashed=0;fontSize=9;labelBackgroundColor=#ffffff;jettySize=auto;orthogonalLoop=1;" edge="1" parent="1" source="ext_users" target="api-gateway">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" value="TCP 8443" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#1A5276;strokeWidth=2;endArrow=block;endFill=1;dashed=0;fontSize=9;labelBackgroundColor=#ffffff;jettySize=auto;orthogonalLoop=1;" edge="1" parent="1" source="api-gateway" target="user-management">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" value="TCP 8443" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#1A5276;strokeWidth=2;endArrow=block;endFill=1;dashed=0;fontSize=9;labelBackgroundColor=#ffffff;jettySize=auto;orthogonalLoop=1;" edge="1" parent="1" source="api-gateway" target="payment-gateway">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" value="TCP 8443" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#1A5276;strokeWidth=2;endArrow=block;endFill=1;dashed=0;fontSize=9;labelBackgroundColor=#ffffff;jettySize=auto;orthogonalLoop=1;" edge="1" parent="1" source="api-gateway" target="kyc-verification">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e5" value="TCP 8443" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#1A5276;strokeWidth=2;endArrow=block;endFill=1;dashed=0;fontSize=9;labelBackgroundColor=#ffffff;jettySize=auto;orthogonalLoop=1;" edge="1" parent="1" source="payment-gateway" target="transaction-processor">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" value="TCP 8443" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#1A5276;strokeWidth=2;endArrow=block;endFill=1;dashed=0;fontSize=9;labelBackgroundColor=#ffffff;jettySize=auto;orthogonalLoop=1;" edge="1" parent="1" source="payment-gateway" target="fraud-detection">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e7" value="TCP 8443" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#1A5276;strokeWidth=2;endArrow=block;endFill=1;dashed=0;fontSize=9;labelBackgroundColor=#ffffff;jettySize=auto;orthogonalLoop=1;" edge="1" parent="1" source="payment-gateway" target="notification">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e8" value="TCP 8443" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#1A5276;strokeWidth=2;endArrow=block;endFill=1;dashed=0;fontSize=9;labelBackgroundColor=#ffffff;jettySize=auto;orthogonalLoop=1;" edge="1" parent="1" source="transaction-processor" target="fraud-detection">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e9" value="TCP 8443" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#1A5276;strokeWidth=2;endArrow=block;endFill=1;dashed=0;fontSize=9;labelBackgroundColor=#ffffff;jettySize=auto;orthogonalLoop=1;" edge="1" parent="1" source="transaction-processor" target="risk-scoring">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e10" value="TCP 8443" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#1A5276;strokeWidth=2;endArrow=block;endFill=1;dashed=0;fontSize=9;labelBackgroundColor=#ffffff;jettySize=auto;orthogonalLoop=1;" edge="1" parent="1" source="transaction-processor" target="settlement-engine">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e11" value="TCP 8443" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#1A5276;strokeWidth=2;endArrow=block;endFill=1;dashed=0;fontSize=9;labelBackgroundColor=#ffffff;jettySize=auto;orthogonalLoop=1;" edge="1" parent="1" source="settlement-engine" target="refund-service">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e12" value="TCP 8443" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#1A5276;strokeWidth=2;endArrow=block;endFill=1;dashed=0;fontSize=9;labelBackgroundColor=#ffffff;jettySize=auto;orthogonalLoop=1;" edge="1" parent="1" source="refund-service" target="notification">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e13" value="TCP 8443" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#1A5276;strokeWidth=2;endArrow=block;endFill=1;dashed=0;fontSize=9;labelBackgroundColor=#ffffff;jettySize=auto;orthogonalLoop=1;" edge="1" parent="1" source="recurring-payments-scheduler" target="payment-gateway">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e14" value="TCP 8443" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#1A5276;strokeWidth=2;endArrow=block;endFill=1;dashed=0;fontSize=9;labelBackgroundColor=#ffffff;jettySize=auto;orthogonalLoop=1;" edge="1" parent="1" source="fraud-detection" target="aml-screening">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e15" value="TCP 8443" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#1A5276;strokeWidth=2;endArrow=block;endFill=1;dashed=0;fontSize=9;labelBackgroundColor=#ffffff;jettySize=auto;orthogonalLoop=1;" edge="1" parent="1" source="aml-screening" target="risk-scoring">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e16" value="TCP 8443" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#1A5276;strokeWidth=2;endArrow=block;endFill=1;dashed=0;fontSize=9;labelBackgroundColor=#ffffff;jettySize=auto;orthogonalLoop=1;" edge="1" parent="1" source="risk-scoring" target="audit-log-aggregator">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e17" value="TCP 8443" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#1A5276;strokeWidth=2;endArrow=block;endFill=1;dashed=0;fontSize=9;labelBackgroundColor=#ffffff;jettySize=auto;orthogonalLoop=1;" edge="1" parent="1" source="compliance-reporting" target="audit-log-aggregator">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e18" value="TCP 8443" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#1A5276;strokeWidth=2;endArrow=block;endFill=1;dashed=0;fontSize=9;labelBackgroundColor=#ffffff;jettySize=auto;orthogonalLoop=1;" edge="1" parent="1" source="compliance-reporting" target="user-management">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e19" value="TCP 8443" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#1A5276;strokeWidth=2;endArrow=block;endFill=1;dashed=0;fontSize=9;labelBackgroundColor=#ffffff;jettySize=auto;orthogonalLoop=1;" edge="1" parent="1" source="customer-support" target="user-management">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e20" value="TCP 8443" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#1A5276;strokeWidth=2;endArrow=block;endFill=1;dashed=0;fontSize=9;labelBackgroundColor=#ffffff;jettySize=auto;orthogonalLoop=1;" edge="1" parent="1" source="preference-manager" target="notification">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e21" value="TCP 8443" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#1A5276;strokeWidth=2;endArrow=block;endFill=1;dashed=0;fontSize=9;labelBackgroundColor=#ffffff;jettySize=auto;orthogonalLoop=1;" edge="1" parent="1" source="report-generator" target="audit-log-aggregator">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e22" value="TCP 8443" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#1A5276;strokeWidth=2;endArrow=block;endFill=1;dashed=0;fontSize=9;labelBackgroundColor=#ffffff;jettySize=auto;orthogonalLoop=1;" edge="1" parent="1" source="health-monitor" target="service-registry">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e23" value="UDP/TCP 53" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#D79B00;strokeWidth=2;endArrow=block;endFill=1;dashed=1;fontSize=9;labelBackgroundColor=#ffffff;jettySize=auto;orthogonalLoop=1;" edge="1" parent="1" source="dom_platform" target="kube-dns">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e24" value="UDP/TCP 53" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#D79B00;strokeWidth=2;endArrow=block;endFill=1;dashed=1;fontSize=9;labelBackgroundColor=#ffffff;jettySize=auto;orthogonalLoop=1;" edge="1" parent="1" source="dom_payments" target="kube-dns">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e25" value="UDP/TCP 53" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#D79B00;strokeWidth=2;endArrow=block;endFill=1;dashed=1;fontSize=9;labelBackgroundColor=#ffffff;jettySize=auto;orthogonalLoop=1;" edge="1" parent="1" source="dom_customer" target="kube-dns">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e26" value="UDP/TCP 53" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#D79B00;strokeWidth=2;endArrow=block;endFill=1;dashed=1;fontSize=9;labelBackgroundColor=#ffffff;jettySize=auto;orthogonalLoop=1;" edge="1" parent="1" source="dom_risk" target="kube-dns">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e27" value="TCP 443" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#666666;strokeWidth=2;endArrow=block;endFill=1;dashed=0;fontSize=9;labelBackgroundColor=#ffffff;jettySize=auto;orthogonalLoop=1;" edge="1" parent="1" source="payment-gateway" target="ext_payment_api">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e28" value="TCP 443" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#666666;strokeWidth=2;endArrow=block;endFill=1;dashed=0;fontSize=9;labelBackgroundColor=#ffffff;jettySize=auto;orthogonalLoop=1;" edge="1" parent="1" source="aml-screening" target="ext_aml_api">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e29" value="TCP 443" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#666666;strokeWidth=2;endArrow=block;endFill=1;dashed=0;fontSize=9;labelBackgroundColor=#ffffff;jettySize=auto;orthogonalLoop=1;" edge="1" parent="1" source="notification" target="ext_notif_api">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e30" value="X  BLOCKED" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#CC0000;strokeWidth=2;endArrow=none;endFill=0;dashed=1;fontSize=9;labelBackgroundColor=#ffffff;jettySize=auto;orthogonalLoop=1;" edge="1" parent="1" source="dev_pod" target="blk_prod_db">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e31" value="X  BLOCKED" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#CC0000;strokeWidth=2;endArrow=none;endFill=0;dashed=1;fontSize=9;labelBackgroundColor=#ffffff;jettySize=auto;orthogonalLoop=1;" edge="1" parent="1" source="dev_pod" target="blk_ext_ip">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e32" value="X  BLOCKED" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#CC0000;strokeWidth=2;endArrow=none;endFill=0;dashed=1;fontSize=9;labelBackgroundColor=#ffffff;jettySize=auto;orthogonalLoop=1;" edge="1" parent="1" source="dev_pod" target="blk_prod_svc">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e33" value="X  denied" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#CC0000;strokeWidth=2;endArrow=none;endFill=0;dashed=1;fontSize=9;labelBackgroundColor=#ffffff;jettySize=auto;orthogonalLoop=1;" edge="1" parent="1" source="env_dev" target="env_staging">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e34" value="X  denied" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#CC0000;strokeWidth=2;endArrow=none;endFill=0;dashed=1;fontSize=9;labelBackgroundColor=#ffffff;jettySize=auto;orthogonalLoop=1;" edge="1" parent="1" source="env_staging" target="env_prod">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

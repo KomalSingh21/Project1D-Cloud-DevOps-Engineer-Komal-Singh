@@ -1,0 +1,60 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: dev-payments-default-deny
+  namespace: finserv-dev-payments
+  labels:
+    finserv.io/environment: dev
+    finserv.io/domain: payments
+    security.finserv.io/policy-type: default-deny
+spec:
+  podSelector: {}
+  policyTypes:
+  - Ingress
+  - Egress
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: dev-risk-default-deny
+  namespace: finserv-dev-risk
+  labels:
+    finserv.io/environment: dev
+    finserv.io/domain: risk
+    security.finserv.io/policy-type: default-deny
+spec:
+  podSelector: {}
+  policyTypes:
+  - Ingress
+  - Egress
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: dev-customer-default-deny
+  namespace: finserv-dev-customer
+  labels:
+    finserv.io/environment: dev
+    finserv.io/domain: customer
+    security.finserv.io/policy-type: default-deny
+spec:
+  podSelector: {}
+  policyTypes:
+  - Ingress
+  - Egress
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: dev-platform-default-deny
+  namespace: finserv-dev-platform
+  labels:
+    finserv.io/environment: dev
+    finserv.io/domain: platform
+    security.finserv.io/policy-type: default-deny
+spec:
+  podSelector: {}
+  policyTypes:
+  - Ingress
+  - Egress
+---

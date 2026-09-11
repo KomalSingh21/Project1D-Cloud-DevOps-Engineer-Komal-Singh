@@ -1,0 +1,3576 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-api-gateway-to-user-management
+  namespace: finserv-dev-customer
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from api-gateway to user-management on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: user-management
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: dev
+          finserv.io/domain: customer
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: api-gateway
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: egress-api-gateway-to-user-management
+  namespace: finserv-dev-customer
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from api-gateway to user-management on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: api-gateway
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: dev
+          finserv.io/domain: customer
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: user-management
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-api-gateway-to-payment-gateway
+  namespace: finserv-dev-payments
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from api-gateway to payment-gateway on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: payment-gateway
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: dev
+          finserv.io/domain: payments
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: api-gateway
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: egress-api-gateway-to-payment-gateway
+  namespace: finserv-dev-payments
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from api-gateway to payment-gateway on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: api-gateway
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: dev
+          finserv.io/domain: payments
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: payment-gateway
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-api-gateway-to-kyc-verification
+  namespace: finserv-dev-customer
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from api-gateway to kyc-verification on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: kyc-verification
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: dev
+          finserv.io/domain: customer
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: api-gateway
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: egress-api-gateway-to-kyc-verification
+  namespace: finserv-dev-customer
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from api-gateway to kyc-verification on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: api-gateway
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: dev
+          finserv.io/domain: customer
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: kyc-verification
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-payment-gateway-to-transaction-processor
+  namespace: finserv-dev-payments
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from payment-gateway to transaction-processor on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: transaction-processor
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: dev
+          finserv.io/domain: payments
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: payment-gateway
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: egress-payment-gateway-to-transaction-processor
+  namespace: finserv-dev-payments
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from payment-gateway to transaction-processor on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: payment-gateway
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: dev
+          finserv.io/domain: payments
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: transaction-processor
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-payment-gateway-to-fraud-detection
+  namespace: finserv-dev-risk
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from payment-gateway to fraud-detection on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: fraud-detection
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: dev
+          finserv.io/domain: risk
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: payment-gateway
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: egress-payment-gateway-to-fraud-detection
+  namespace: finserv-dev-risk
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from payment-gateway to fraud-detection on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: payment-gateway
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: dev
+          finserv.io/domain: risk
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: fraud-detection
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-payment-gateway-to-notification
+  namespace: finserv-dev-customer
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from payment-gateway to notification on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: notification
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: dev
+          finserv.io/domain: customer
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: payment-gateway
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: egress-payment-gateway-to-notification
+  namespace: finserv-dev-customer
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from payment-gateway to notification on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: payment-gateway
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: dev
+          finserv.io/domain: customer
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: notification
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-transaction-processor-to-fraud-detection
+  namespace: finserv-dev-risk
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from transaction-processor to fraud-detection on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: fraud-detection
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: dev
+          finserv.io/domain: risk
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: transaction-processor
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: egress-transaction-processor-to-fraud-detection
+  namespace: finserv-dev-risk
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from transaction-processor to fraud-detection on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: transaction-processor
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: dev
+          finserv.io/domain: risk
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: fraud-detection
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-transaction-processor-to-risk-scoring
+  namespace: finserv-dev-risk
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from transaction-processor to risk-scoring on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: risk-scoring
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: dev
+          finserv.io/domain: risk
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: transaction-processor
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: egress-transaction-processor-to-risk-scoring
+  namespace: finserv-dev-risk
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from transaction-processor to risk-scoring on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: transaction-processor
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: dev
+          finserv.io/domain: risk
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: risk-scoring
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-transaction-processor-to-settlement-engine
+  namespace: finserv-dev-payments
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from transaction-processor to settlement-engine on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: settlement-engine
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: dev
+          finserv.io/domain: payments
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: transaction-processor
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: egress-transaction-processor-to-settlement-engine
+  namespace: finserv-dev-payments
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from transaction-processor to settlement-engine on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: transaction-processor
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: dev
+          finserv.io/domain: payments
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: settlement-engine
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-settlement-engine-to-refund-service
+  namespace: finserv-dev-payments
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from settlement-engine to refund-service on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: refund-service
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: dev
+          finserv.io/domain: payments
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: settlement-engine
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: egress-settlement-engine-to-refund-service
+  namespace: finserv-dev-payments
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from settlement-engine to refund-service on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: settlement-engine
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: dev
+          finserv.io/domain: payments
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: refund-service
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-refund-service-to-notification
+  namespace: finserv-dev-customer
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from refund-service to notification on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: notification
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: dev
+          finserv.io/domain: customer
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: refund-service
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: egress-refund-service-to-notification
+  namespace: finserv-dev-customer
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from refund-service to notification on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: refund-service
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: dev
+          finserv.io/domain: customer
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: notification
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-recurring-payments-scheduler-to-payment-gateway
+  namespace: finserv-dev-payments
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from recurring-payments-scheduler to payment-gateway on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: payment-gateway
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: dev
+          finserv.io/domain: payments
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: recurring-payments-scheduler
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: egress-recurring-payments-scheduler-to-payment-gateway
+  namespace: finserv-dev-payments
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from recurring-payments-scheduler to payment-gateway on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: recurring-payments-scheduler
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: dev
+          finserv.io/domain: payments
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: payment-gateway
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-fraud-detection-to-aml-screening
+  namespace: finserv-dev-risk
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from fraud-detection to aml-screening on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: aml-screening
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: dev
+          finserv.io/domain: risk
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: fraud-detection
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: egress-fraud-detection-to-aml-screening
+  namespace: finserv-dev-risk
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from fraud-detection to aml-screening on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: fraud-detection
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: dev
+          finserv.io/domain: risk
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: aml-screening
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-aml-screening-to-risk-scoring
+  namespace: finserv-dev-risk
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from aml-screening to risk-scoring on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: risk-scoring
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: dev
+          finserv.io/domain: risk
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: aml-screening
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: egress-aml-screening-to-risk-scoring
+  namespace: finserv-dev-risk
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from aml-screening to risk-scoring on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: aml-screening
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: dev
+          finserv.io/domain: risk
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: risk-scoring
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-risk-scoring-to-audit-log-aggregator
+  namespace: finserv-dev-risk
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from risk-scoring to audit-log-aggregator on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: audit-log-aggregator
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: dev
+          finserv.io/domain: risk
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: risk-scoring
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: egress-risk-scoring-to-audit-log-aggregator
+  namespace: finserv-dev-risk
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from risk-scoring to audit-log-aggregator on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: risk-scoring
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: dev
+          finserv.io/domain: risk
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: audit-log-aggregator
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-compliance-reporting-to-audit-log-aggregator
+  namespace: finserv-dev-risk
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from compliance-reporting to audit-log-aggregator on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: audit-log-aggregator
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: dev
+          finserv.io/domain: risk
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: compliance-reporting
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: egress-compliance-reporting-to-audit-log-aggregator
+  namespace: finserv-dev-risk
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from compliance-reporting to audit-log-aggregator on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: compliance-reporting
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: dev
+          finserv.io/domain: risk
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: audit-log-aggregator
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-compliance-reporting-to-user-management
+  namespace: finserv-dev-customer
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from compliance-reporting to user-management on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: user-management
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: dev
+          finserv.io/domain: customer
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: compliance-reporting
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: egress-compliance-reporting-to-user-management
+  namespace: finserv-dev-customer
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from compliance-reporting to user-management on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: compliance-reporting
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: dev
+          finserv.io/domain: customer
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: user-management
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-customer-support-to-user-management
+  namespace: finserv-dev-customer
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from customer-support to user-management on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: user-management
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: dev
+          finserv.io/domain: customer
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: customer-support
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: egress-customer-support-to-user-management
+  namespace: finserv-dev-customer
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from customer-support to user-management on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: customer-support
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: dev
+          finserv.io/domain: customer
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: user-management
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-preference-manager-to-notification
+  namespace: finserv-dev-customer
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from preference-manager to notification on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: notification
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: dev
+          finserv.io/domain: customer
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: preference-manager
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: egress-preference-manager-to-notification
+  namespace: finserv-dev-customer
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from preference-manager to notification on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: preference-manager
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: dev
+          finserv.io/domain: customer
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: notification
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-report-generator-to-audit-log-aggregator
+  namespace: finserv-dev-risk
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from report-generator to audit-log-aggregator on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: audit-log-aggregator
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: dev
+          finserv.io/domain: risk
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: report-generator
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: egress-report-generator-to-audit-log-aggregator
+  namespace: finserv-dev-risk
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from report-generator to audit-log-aggregator on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: report-generator
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: dev
+          finserv.io/domain: risk
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: audit-log-aggregator
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-health-monitor-to-service-registry
+  namespace: finserv-dev-platform
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from health-monitor to service-registry on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: service-registry
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: dev
+          finserv.io/domain: platform
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: health-monitor
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: egress-health-monitor-to-service-registry
+  namespace: finserv-dev-platform
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from health-monitor to service-registry on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: health-monitor
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: dev
+          finserv.io/domain: platform
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: service-registry
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-api-gateway-to-user-management
+  namespace: finserv-staging-customer
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from api-gateway to user-management on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: user-management
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: staging
+          finserv.io/domain: customer
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: api-gateway
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: egress-api-gateway-to-user-management
+  namespace: finserv-staging-customer
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from api-gateway to user-management on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: api-gateway
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: staging
+          finserv.io/domain: customer
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: user-management
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-api-gateway-to-payment-gateway
+  namespace: finserv-staging-payments
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from api-gateway to payment-gateway on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: payment-gateway
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: staging
+          finserv.io/domain: payments
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: api-gateway
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: egress-api-gateway-to-payment-gateway
+  namespace: finserv-staging-payments
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from api-gateway to payment-gateway on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: api-gateway
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: staging
+          finserv.io/domain: payments
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: payment-gateway
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-api-gateway-to-kyc-verification
+  namespace: finserv-staging-customer
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from api-gateway to kyc-verification on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: kyc-verification
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: staging
+          finserv.io/domain: customer
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: api-gateway
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: egress-api-gateway-to-kyc-verification
+  namespace: finserv-staging-customer
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from api-gateway to kyc-verification on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: api-gateway
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: staging
+          finserv.io/domain: customer
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: kyc-verification
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-payment-gateway-to-transaction-processor
+  namespace: finserv-staging-payments
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from payment-gateway to transaction-processor on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: transaction-processor
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: staging
+          finserv.io/domain: payments
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: payment-gateway
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: egress-payment-gateway-to-transaction-processor
+  namespace: finserv-staging-payments
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from payment-gateway to transaction-processor on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: payment-gateway
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: staging
+          finserv.io/domain: payments
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: transaction-processor
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-payment-gateway-to-fraud-detection
+  namespace: finserv-staging-risk
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from payment-gateway to fraud-detection on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: fraud-detection
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: staging
+          finserv.io/domain: risk
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: payment-gateway
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: egress-payment-gateway-to-fraud-detection
+  namespace: finserv-staging-risk
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from payment-gateway to fraud-detection on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: payment-gateway
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: staging
+          finserv.io/domain: risk
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: fraud-detection
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-payment-gateway-to-notification
+  namespace: finserv-staging-customer
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from payment-gateway to notification on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: notification
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: staging
+          finserv.io/domain: customer
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: payment-gateway
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: egress-payment-gateway-to-notification
+  namespace: finserv-staging-customer
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from payment-gateway to notification on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: payment-gateway
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: staging
+          finserv.io/domain: customer
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: notification
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-transaction-processor-to-fraud-detection
+  namespace: finserv-staging-risk
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from transaction-processor to fraud-detection on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: fraud-detection
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: staging
+          finserv.io/domain: risk
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: transaction-processor
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: egress-transaction-processor-to-fraud-detection
+  namespace: finserv-staging-risk
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from transaction-processor to fraud-detection on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: transaction-processor
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: staging
+          finserv.io/domain: risk
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: fraud-detection
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-transaction-processor-to-risk-scoring
+  namespace: finserv-staging-risk
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from transaction-processor to risk-scoring on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: risk-scoring
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: staging
+          finserv.io/domain: risk
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: transaction-processor
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: egress-transaction-processor-to-risk-scoring
+  namespace: finserv-staging-risk
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from transaction-processor to risk-scoring on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: transaction-processor
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: staging
+          finserv.io/domain: risk
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: risk-scoring
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-transaction-processor-to-settlement-engine
+  namespace: finserv-staging-payments
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from transaction-processor to settlement-engine on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: settlement-engine
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: staging
+          finserv.io/domain: payments
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: transaction-processor
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: egress-transaction-processor-to-settlement-engine
+  namespace: finserv-staging-payments
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from transaction-processor to settlement-engine on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: transaction-processor
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: staging
+          finserv.io/domain: payments
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: settlement-engine
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-settlement-engine-to-refund-service
+  namespace: finserv-staging-payments
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from settlement-engine to refund-service on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: refund-service
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: staging
+          finserv.io/domain: payments
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: settlement-engine
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: egress-settlement-engine-to-refund-service
+  namespace: finserv-staging-payments
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from settlement-engine to refund-service on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: settlement-engine
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: staging
+          finserv.io/domain: payments
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: refund-service
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-refund-service-to-notification
+  namespace: finserv-staging-customer
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from refund-service to notification on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: notification
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: staging
+          finserv.io/domain: customer
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: refund-service
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: egress-refund-service-to-notification
+  namespace: finserv-staging-customer
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from refund-service to notification on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: refund-service
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: staging
+          finserv.io/domain: customer
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: notification
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-recurring-payments-scheduler-to-payment-gateway
+  namespace: finserv-staging-payments
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from recurring-payments-scheduler to payment-gateway on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: payment-gateway
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: staging
+          finserv.io/domain: payments
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: recurring-payments-scheduler
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: egress-recurring-payments-scheduler-to-payment-gateway
+  namespace: finserv-staging-payments
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from recurring-payments-scheduler to payment-gateway on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: recurring-payments-scheduler
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: staging
+          finserv.io/domain: payments
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: payment-gateway
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-fraud-detection-to-aml-screening
+  namespace: finserv-staging-risk
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from fraud-detection to aml-screening on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: aml-screening
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: staging
+          finserv.io/domain: risk
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: fraud-detection
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: egress-fraud-detection-to-aml-screening
+  namespace: finserv-staging-risk
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from fraud-detection to aml-screening on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: fraud-detection
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: staging
+          finserv.io/domain: risk
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: aml-screening
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-aml-screening-to-risk-scoring
+  namespace: finserv-staging-risk
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from aml-screening to risk-scoring on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: risk-scoring
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: staging
+          finserv.io/domain: risk
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: aml-screening
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: egress-aml-screening-to-risk-scoring
+  namespace: finserv-staging-risk
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from aml-screening to risk-scoring on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: aml-screening
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: staging
+          finserv.io/domain: risk
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: risk-scoring
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-risk-scoring-to-audit-log-aggregator
+  namespace: finserv-staging-risk
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from risk-scoring to audit-log-aggregator on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: audit-log-aggregator
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: staging
+          finserv.io/domain: risk
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: risk-scoring
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: egress-risk-scoring-to-audit-log-aggregator
+  namespace: finserv-staging-risk
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from risk-scoring to audit-log-aggregator on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: risk-scoring
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: staging
+          finserv.io/domain: risk
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: audit-log-aggregator
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-compliance-reporting-to-audit-log-aggregator
+  namespace: finserv-staging-risk
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from compliance-reporting to audit-log-aggregator on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: audit-log-aggregator
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: staging
+          finserv.io/domain: risk
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: compliance-reporting
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: egress-compliance-reporting-to-audit-log-aggregator
+  namespace: finserv-staging-risk
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from compliance-reporting to audit-log-aggregator on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: compliance-reporting
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: staging
+          finserv.io/domain: risk
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: audit-log-aggregator
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-compliance-reporting-to-user-management
+  namespace: finserv-staging-customer
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from compliance-reporting to user-management on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: user-management
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: staging
+          finserv.io/domain: customer
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: compliance-reporting
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: egress-compliance-reporting-to-user-management
+  namespace: finserv-staging-customer
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from compliance-reporting to user-management on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: compliance-reporting
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: staging
+          finserv.io/domain: customer
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: user-management
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-customer-support-to-user-management
+  namespace: finserv-staging-customer
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from customer-support to user-management on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: user-management
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: staging
+          finserv.io/domain: customer
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: customer-support
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: egress-customer-support-to-user-management
+  namespace: finserv-staging-customer
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from customer-support to user-management on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: customer-support
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: staging
+          finserv.io/domain: customer
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: user-management
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-preference-manager-to-notification
+  namespace: finserv-staging-customer
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from preference-manager to notification on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: notification
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: staging
+          finserv.io/domain: customer
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: preference-manager
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: egress-preference-manager-to-notification
+  namespace: finserv-staging-customer
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from preference-manager to notification on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: preference-manager
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: staging
+          finserv.io/domain: customer
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: notification
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-report-generator-to-audit-log-aggregator
+  namespace: finserv-staging-risk
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from report-generator to audit-log-aggregator on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: audit-log-aggregator
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: staging
+          finserv.io/domain: risk
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: report-generator
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: egress-report-generator-to-audit-log-aggregator
+  namespace: finserv-staging-risk
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from report-generator to audit-log-aggregator on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: report-generator
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: staging
+          finserv.io/domain: risk
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: audit-log-aggregator
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-health-monitor-to-service-registry
+  namespace: finserv-staging-platform
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from health-monitor to service-registry on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: service-registry
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: staging
+          finserv.io/domain: platform
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: health-monitor
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: egress-health-monitor-to-service-registry
+  namespace: finserv-staging-platform
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from health-monitor to service-registry on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: health-monitor
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: staging
+          finserv.io/domain: platform
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: service-registry
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-api-gateway-to-user-management
+  namespace: finserv-prod-customer
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from api-gateway to user-management on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: user-management
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: prod
+          finserv.io/domain: customer
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: api-gateway
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: egress-api-gateway-to-user-management
+  namespace: finserv-prod-customer
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from api-gateway to user-management on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: api-gateway
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: prod
+          finserv.io/domain: customer
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: user-management
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-api-gateway-to-payment-gateway
+  namespace: finserv-prod-payments
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from api-gateway to payment-gateway on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: payment-gateway
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: prod
+          finserv.io/domain: payments
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: api-gateway
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: egress-api-gateway-to-payment-gateway
+  namespace: finserv-prod-payments
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from api-gateway to payment-gateway on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: api-gateway
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: prod
+          finserv.io/domain: payments
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: payment-gateway
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-api-gateway-to-kyc-verification
+  namespace: finserv-prod-customer
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from api-gateway to kyc-verification on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: kyc-verification
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: prod
+          finserv.io/domain: customer
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: api-gateway
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: egress-api-gateway-to-kyc-verification
+  namespace: finserv-prod-customer
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from api-gateway to kyc-verification on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: api-gateway
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: prod
+          finserv.io/domain: customer
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: kyc-verification
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-payment-gateway-to-transaction-processor
+  namespace: finserv-prod-payments
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from payment-gateway to transaction-processor on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: transaction-processor
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: prod
+          finserv.io/domain: payments
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: payment-gateway
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: egress-payment-gateway-to-transaction-processor
+  namespace: finserv-prod-payments
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from payment-gateway to transaction-processor on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: payment-gateway
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: prod
+          finserv.io/domain: payments
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: transaction-processor
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-payment-gateway-to-fraud-detection
+  namespace: finserv-prod-risk
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from payment-gateway to fraud-detection on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: fraud-detection
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: prod
+          finserv.io/domain: risk
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: payment-gateway
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: egress-payment-gateway-to-fraud-detection
+  namespace: finserv-prod-risk
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from payment-gateway to fraud-detection on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: payment-gateway
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: prod
+          finserv.io/domain: risk
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: fraud-detection
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-payment-gateway-to-notification
+  namespace: finserv-prod-customer
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from payment-gateway to notification on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: notification
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: prod
+          finserv.io/domain: customer
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: payment-gateway
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: egress-payment-gateway-to-notification
+  namespace: finserv-prod-customer
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from payment-gateway to notification on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: payment-gateway
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: prod
+          finserv.io/domain: customer
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: notification
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-transaction-processor-to-fraud-detection
+  namespace: finserv-prod-risk
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from transaction-processor to fraud-detection on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: fraud-detection
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: prod
+          finserv.io/domain: risk
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: transaction-processor
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: egress-transaction-processor-to-fraud-detection
+  namespace: finserv-prod-risk
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from transaction-processor to fraud-detection on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: transaction-processor
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: prod
+          finserv.io/domain: risk
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: fraud-detection
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-transaction-processor-to-risk-scoring
+  namespace: finserv-prod-risk
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from transaction-processor to risk-scoring on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: risk-scoring
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: prod
+          finserv.io/domain: risk
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: transaction-processor
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: egress-transaction-processor-to-risk-scoring
+  namespace: finserv-prod-risk
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from transaction-processor to risk-scoring on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: transaction-processor
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: prod
+          finserv.io/domain: risk
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: risk-scoring
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-transaction-processor-to-settlement-engine
+  namespace: finserv-prod-payments
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from transaction-processor to settlement-engine on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: settlement-engine
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: prod
+          finserv.io/domain: payments
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: transaction-processor
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: egress-transaction-processor-to-settlement-engine
+  namespace: finserv-prod-payments
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from transaction-processor to settlement-engine on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: transaction-processor
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: prod
+          finserv.io/domain: payments
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: settlement-engine
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-settlement-engine-to-refund-service
+  namespace: finserv-prod-payments
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from settlement-engine to refund-service on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: refund-service
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: prod
+          finserv.io/domain: payments
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: settlement-engine
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: egress-settlement-engine-to-refund-service
+  namespace: finserv-prod-payments
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from settlement-engine to refund-service on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: settlement-engine
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: prod
+          finserv.io/domain: payments
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: refund-service
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-refund-service-to-notification
+  namespace: finserv-prod-customer
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from refund-service to notification on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: notification
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: prod
+          finserv.io/domain: customer
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: refund-service
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: egress-refund-service-to-notification
+  namespace: finserv-prod-customer
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from refund-service to notification on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: refund-service
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: prod
+          finserv.io/domain: customer
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: notification
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-recurring-payments-scheduler-to-payment-gateway
+  namespace: finserv-prod-payments
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from recurring-payments-scheduler to payment-gateway on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: payment-gateway
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: prod
+          finserv.io/domain: payments
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: recurring-payments-scheduler
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: egress-recurring-payments-scheduler-to-payment-gateway
+  namespace: finserv-prod-payments
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from recurring-payments-scheduler to payment-gateway on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: recurring-payments-scheduler
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: prod
+          finserv.io/domain: payments
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: payment-gateway
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-fraud-detection-to-aml-screening
+  namespace: finserv-prod-risk
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from fraud-detection to aml-screening on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: aml-screening
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: prod
+          finserv.io/domain: risk
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: fraud-detection
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: egress-fraud-detection-to-aml-screening
+  namespace: finserv-prod-risk
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from fraud-detection to aml-screening on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: fraud-detection
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: prod
+          finserv.io/domain: risk
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: aml-screening
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-aml-screening-to-risk-scoring
+  namespace: finserv-prod-risk
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from aml-screening to risk-scoring on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: risk-scoring
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: prod
+          finserv.io/domain: risk
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: aml-screening
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: egress-aml-screening-to-risk-scoring
+  namespace: finserv-prod-risk
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from aml-screening to risk-scoring on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: aml-screening
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: prod
+          finserv.io/domain: risk
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: risk-scoring
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-risk-scoring-to-audit-log-aggregator
+  namespace: finserv-prod-risk
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from risk-scoring to audit-log-aggregator on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: audit-log-aggregator
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: prod
+          finserv.io/domain: risk
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: risk-scoring
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: egress-risk-scoring-to-audit-log-aggregator
+  namespace: finserv-prod-risk
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from risk-scoring to audit-log-aggregator on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: risk-scoring
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: prod
+          finserv.io/domain: risk
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: audit-log-aggregator
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-compliance-reporting-to-audit-log-aggregator
+  namespace: finserv-prod-risk
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from compliance-reporting to audit-log-aggregator on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: audit-log-aggregator
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: prod
+          finserv.io/domain: risk
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: compliance-reporting
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: egress-compliance-reporting-to-audit-log-aggregator
+  namespace: finserv-prod-risk
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from compliance-reporting to audit-log-aggregator on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: compliance-reporting
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: prod
+          finserv.io/domain: risk
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: audit-log-aggregator
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-compliance-reporting-to-user-management
+  namespace: finserv-prod-customer
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from compliance-reporting to user-management on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: user-management
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: prod
+          finserv.io/domain: customer
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: compliance-reporting
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: egress-compliance-reporting-to-user-management
+  namespace: finserv-prod-customer
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from compliance-reporting to user-management on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: compliance-reporting
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: prod
+          finserv.io/domain: customer
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: user-management
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-customer-support-to-user-management
+  namespace: finserv-prod-customer
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from customer-support to user-management on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: user-management
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: prod
+          finserv.io/domain: customer
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: customer-support
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: egress-customer-support-to-user-management
+  namespace: finserv-prod-customer
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from customer-support to user-management on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: customer-support
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: prod
+          finserv.io/domain: customer
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: user-management
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-preference-manager-to-notification
+  namespace: finserv-prod-customer
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from preference-manager to notification on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: notification
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: prod
+          finserv.io/domain: customer
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: preference-manager
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: egress-preference-manager-to-notification
+  namespace: finserv-prod-customer
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from preference-manager to notification on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: preference-manager
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: prod
+          finserv.io/domain: customer
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: notification
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-report-generator-to-audit-log-aggregator
+  namespace: finserv-prod-risk
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from report-generator to audit-log-aggregator on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: audit-log-aggregator
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: prod
+          finserv.io/domain: risk
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: report-generator
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: egress-report-generator-to-audit-log-aggregator
+  namespace: finserv-prod-risk
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from report-generator to audit-log-aggregator on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: report-generator
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: prod
+          finserv.io/domain: risk
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: audit-log-aggregator
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-health-monitor-to-service-registry
+  namespace: finserv-prod-platform
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from health-monitor to service-registry on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: service-registry
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: prod
+          finserv.io/domain: platform
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: health-monitor
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: egress-health-monitor-to-service-registry
+  namespace: finserv-prod-platform
+  annotations:
+    security.finserv.io/rationale: "Required application dependency from health-monitor to service-registry on TCP 8443"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: health-monitor
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          finserv.io/environment: prod
+          finserv.io/domain: platform
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: service-registry
+    ports:
+    - protocol: TCP
+      port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-dns
+  namespace: finserv-dev-payments
+  annotations:
+    security.finserv.io/rationale: "Permit Kubernetes DNS resolution only to kube-dns on TCP/UDP 53"
+spec:
+  podSelector: {}
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: kube-system
+      podSelector:
+        matchLabels:
+          k8s-app: kube-dns
+    ports:
+    - protocol: UDP
+      port: 53
+    - protocol: TCP
+      port: 53
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-dns
+  namespace: finserv-dev-risk
+  annotations:
+    security.finserv.io/rationale: "Permit Kubernetes DNS resolution only to kube-dns on TCP/UDP 53"
+spec:
+  podSelector: {}
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: kube-system
+      podSelector:
+        matchLabels:
+          k8s-app: kube-dns
+    ports:
+    - protocol: UDP
+      port: 53
+    - protocol: TCP
+      port: 53
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-dns
+  namespace: finserv-dev-customer
+  annotations:
+    security.finserv.io/rationale: "Permit Kubernetes DNS resolution only to kube-dns on TCP/UDP 53"
+spec:
+  podSelector: {}
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: kube-system
+      podSelector:
+        matchLabels:
+          k8s-app: kube-dns
+    ports:
+    - protocol: UDP
+      port: 53
+    - protocol: TCP
+      port: 53
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-dns
+  namespace: finserv-dev-platform
+  annotations:
+    security.finserv.io/rationale: "Permit Kubernetes DNS resolution only to kube-dns on TCP/UDP 53"
+spec:
+  podSelector: {}
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: kube-system
+      podSelector:
+        matchLabels:
+          k8s-app: kube-dns
+    ports:
+    - protocol: UDP
+      port: 53
+    - protocol: TCP
+      port: 53
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-dns
+  namespace: finserv-staging-payments
+  annotations:
+    security.finserv.io/rationale: "Permit Kubernetes DNS resolution only to kube-dns on TCP/UDP 53"
+spec:
+  podSelector: {}
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: kube-system
+      podSelector:
+        matchLabels:
+          k8s-app: kube-dns
+    ports:
+    - protocol: UDP
+      port: 53
+    - protocol: TCP
+      port: 53
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-dns
+  namespace: finserv-staging-risk
+  annotations:
+    security.finserv.io/rationale: "Permit Kubernetes DNS resolution only to kube-dns on TCP/UDP 53"
+spec:
+  podSelector: {}
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: kube-system
+      podSelector:
+        matchLabels:
+          k8s-app: kube-dns
+    ports:
+    - protocol: UDP
+      port: 53
+    - protocol: TCP
+      port: 53
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-dns
+  namespace: finserv-staging-customer
+  annotations:
+    security.finserv.io/rationale: "Permit Kubernetes DNS resolution only to kube-dns on TCP/UDP 53"
+spec:
+  podSelector: {}
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: kube-system
+      podSelector:
+        matchLabels:
+          k8s-app: kube-dns
+    ports:
+    - protocol: UDP
+      port: 53
+    - protocol: TCP
+      port: 53
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-dns
+  namespace: finserv-staging-platform
+  annotations:
+    security.finserv.io/rationale: "Permit Kubernetes DNS resolution only to kube-dns on TCP/UDP 53"
+spec:
+  podSelector: {}
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: kube-system
+      podSelector:
+        matchLabels:
+          k8s-app: kube-dns
+    ports:
+    - protocol: UDP
+      port: 53
+    - protocol: TCP
+      port: 53
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-dns
+  namespace: finserv-prod-payments
+  annotations:
+    security.finserv.io/rationale: "Permit Kubernetes DNS resolution only to kube-dns on TCP/UDP 53"
+spec:
+  podSelector: {}
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: kube-system
+      podSelector:
+        matchLabels:
+          k8s-app: kube-dns
+    ports:
+    - protocol: UDP
+      port: 53
+    - protocol: TCP
+      port: 53
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-dns
+  namespace: finserv-prod-risk
+  annotations:
+    security.finserv.io/rationale: "Permit Kubernetes DNS resolution only to kube-dns on TCP/UDP 53"
+spec:
+  podSelector: {}
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: kube-system
+      podSelector:
+        matchLabels:
+          k8s-app: kube-dns
+    ports:
+    - protocol: UDP
+      port: 53
+    - protocol: TCP
+      port: 53
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-dns
+  namespace: finserv-prod-customer
+  annotations:
+    security.finserv.io/rationale: "Permit Kubernetes DNS resolution only to kube-dns on TCP/UDP 53"
+spec:
+  podSelector: {}
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: kube-system
+      podSelector:
+        matchLabels:
+          k8s-app: kube-dns
+    ports:
+    - protocol: UDP
+      port: 53
+    - protocol: TCP
+      port: 53
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-dns
+  namespace: finserv-prod-platform
+  annotations:
+    security.finserv.io/rationale: "Permit Kubernetes DNS resolution only to kube-dns on TCP/UDP 53"
+spec:
+  podSelector: {}
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: kube-system
+      podSelector:
+        matchLabels:
+          k8s-app: kube-dns
+    ports:
+    - protocol: UDP
+      port: 53
+    - protocol: TCP
+      port: 53
+---

@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net" modified="2026-09-12T00:00:00.000Z" agent="python-generator" version="24.0.0" type="device">
+  <diagram id="finserv-cluster-arch" name="Cluster Architecture">
+    <mxGraphModel dx="1600" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2500" pageHeight="1520" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" value="FinServ Digital — Security-Hardened Kubernetes Cluster Architecture" style="text;html=1;align=center;verticalAlign=middle;fontSize=22;fontStyle=1;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="40" y="10" width="2420" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="subtitle" value="Day 2 | Multi-Environment Topology, HA Control Plane &amp; Workload Isolation" style="text;html=1;align=center;verticalAlign=middle;fontSize=13;fontStyle=0;fontColor=#555555;" vertex="1" parent="1">
+          <mxGeometry x="40" y="52" width="2420" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="footer" value="Phase 1 — Foundation &amp; Architecture | Day 2 | Design Baseline" style="text;html=1;align=center;verticalAlign=middle;fontSize=11;fontStyle=0;fontColor=#777777;" vertex="1" parent="1">
+          <mxGeometry x="40" y="1470" width="2420" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="dev_cluster" value="FinServ Dev Cluster
+(separate trust boundary — not a namespace)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#EAF1FB;strokeColor=#4472C4;dashed=1;strokeWidth=3;fontSize=12;fontStyle=1;verticalAlign=top;align=left;spacingLeft=10;spacingTop=8;fontColor=#4472C4;" vertex="1" parent="1">
+          <mxGeometry x="40" y="300" width="680" height="680" as="geometry" />
+        </mxCell>
+        <mxCell id="staging_cluster" value="FinServ Staging Cluster
+(separate trust boundary — not a namespace)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFF3E0;strokeColor=#ED7D31;dashed=1;strokeWidth=3;fontSize=12;fontStyle=1;verticalAlign=top;align=left;spacingLeft=10;spacingTop=8;fontColor=#ED7D31;" vertex="1" parent="1">
+          <mxGeometry x="760" y="300" width="680" height="680" as="geometry" />
+        </mxCell>
+        <mxCell id="prod_trust" value="HIGHEST TRUST / PRODUCTION BOUNDARY" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#C00000;dashed=1;strokeWidth=4;fontSize=13;fontStyle=1;verticalAlign=top;align=left;spacingLeft=10;spacingTop=8;fontColor=#C00000;" vertex="1" parent="1">
+          <mxGeometry x="1500" y="250" width="960" height="730" as="geometry" />
+        </mxCell>
+        <mxCell id="prod_cluster" value="FinServ Production Cluster" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#E8F5E9;strokeColor=#2E7D32;dashed=1;strokeWidth=3;fontSize=12;fontStyle=1;verticalAlign=top;align=left;spacingLeft=10;spacingTop=8;fontColor=#2E7D32;" vertex="1" parent="1">
+          <mxGeometry x="1520" y="300" width="920" height="650" as="geometry" />
+        </mxCell>
+        <mxCell id="platform_services_band" value="Platform Services / Later Phase Integration (conceptual placement — not all Day 2 implementations)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F2F2F2;strokeColor=#7F7F7F;dashed=1;strokeWidth=3;fontSize=10;fontStyle=1;verticalAlign=top;align=left;spacingLeft=10;spacingTop=8;fontColor=#7F7F7F;" vertex="1" parent="1">
+          <mxGeometry x="40" y="1060" width="2420" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="legend_box" value="ARCHITECTURE LEGEND" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#333333;dashed=1;strokeWidth=3;fontSize=11;fontStyle=1;verticalAlign=top;align=left;spacingLeft=10;spacingTop=8;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="1980" y="1260" width="480" height="220" as="geometry" />
+        </mxCell>
+        <mxCell id="users_internet" value="Users / Internet" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#333333;fontSize=10;fontStyle=1;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1150" y="140" width="220" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="approved_ext_apis" value="Approved External APIs
+(controlled egress only — see
+Day 5 Network Policy diagram)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#666666;fontSize=8.5;fontStyle=0;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1450" y="140" width="300" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ingress_edge" value="Ingress / Edge
+(Environment Load Balancer)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#333333;fontSize=10;fontStyle=1;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1150" y="225" width="220" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="policy_banner" value="Application traffic is explicitly authorized by NetworkPolicy; default state is DENY." style="text;html=1;align=center;verticalAlign=middle;fontSize=10;fontStyle=2;fontColor=#C00000;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="40" y="92" width="2420" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="dev_cp" value="Kubernetes Control Plane (dev)
+Single control-plane node — not HA (non-production)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#D9E8FB;strokeColor=#2F5597;fontSize=9;fontStyle=0;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="70" y="350" width="620" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="dev_pool_general" value="Worker Pool: general" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FBE5D6;strokeColor=#C55A11;fontSize=10;fontStyle=0;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="70" y="450" width="290" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="dev_pool_platform" value="Worker Pool: platform/security" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FBE5D6;strokeColor=#C55A11;fontSize=10;fontStyle=0;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="400" y="450" width="290" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="dev_ns_payments" value="finserv-dev-payments
+(Payments)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E2EFDA;strokeColor=#548235;fontSize=10;fontStyle=0;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="70" y="535" width="290" height="85" as="geometry" />
+        </mxCell>
+        <mxCell id="dev_ns_risk" value="finserv-dev-risk
+(Risk &amp; Compliance)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E2EFDA;strokeColor=#548235;fontSize=10;fontStyle=0;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="400" y="535" width="290" height="85" as="geometry" />
+        </mxCell>
+        <mxCell id="dev_ns_customer" value="finserv-dev-customer
+(Customer)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E2EFDA;strokeColor=#548235;fontSize=10;fontStyle=0;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="70" y="630" width="290" height="85" as="geometry" />
+        </mxCell>
+        <mxCell id="dev_ns_platform" value="finserv-dev-platform
+(Platform)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E2EFDA;strokeColor=#548235;fontSize=10;fontStyle=0;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="400" y="630" width="290" height="85" as="geometry" />
+        </mxCell>
+        <mxCell id="staging_cp" value="Kubernetes Control Plane (staging)
+Single control-plane node — not HA (non-production)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#D9E8FB;strokeColor=#2F5597;fontSize=9;fontStyle=0;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="790" y="350" width="620" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="staging_pool_general" value="Worker Pool: general" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FBE5D6;strokeColor=#C55A11;fontSize=10;fontStyle=0;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="790" y="450" width="290" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="staging_pool_platform" value="Worker Pool: platform/security" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FBE5D6;strokeColor=#C55A11;fontSize=10;fontStyle=0;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1120" y="450" width="290" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="staging_ns_payments" value="finserv-staging-payments
+(Payments)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E2EFDA;strokeColor=#548235;fontSize=10;fontStyle=0;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="790" y="535" width="290" height="85" as="geometry" />
+        </mxCell>
+        <mxCell id="staging_ns_risk" value="finserv-staging-risk
+(Risk &amp; Compliance)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E2EFDA;strokeColor=#548235;fontSize=10;fontStyle=0;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1120" y="535" width="290" height="85" as="geometry" />
+        </mxCell>
+        <mxCell id="staging_ns_customer" value="finserv-staging-customer
+(Customer)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E2EFDA;strokeColor=#548235;fontSize=10;fontStyle=0;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="790" y="630" width="290" height="85" as="geometry" />
+        </mxCell>
+        <mxCell id="staging_ns_platform" value="finserv-staging-platform
+(Platform)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E2EFDA;strokeColor=#548235;fontSize=10;fontStyle=0;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1120" y="630" width="290" height="85" as="geometry" />
+        </mxCell>
+        <mxCell id="prod_lb" value="Highly Available API Endpoint / Load Balancer (VIP)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#D9E8FB;strokeColor=#2F5597;fontSize=9;fontStyle=1;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1540" y="350" width="840" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="prod_cp1" value="Control Plane Node 1
+AZ-a" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#D9E8FB;strokeColor=#2F5597;fontSize=9;fontStyle=1;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1540" y="415" width="260" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="prod_cp2" value="Control Plane Node 2
+AZ-b" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#D9E8FB;strokeColor=#2F5597;fontSize=9;fontStyle=1;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1820" y="415" width="260" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="prod_cp3" value="Control Plane Node 3
+AZ-c" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#D9E8FB;strokeColor=#2F5597;fontSize=9;fontStyle=1;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="2100" y="415" width="260" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="prod_etcd" value="etcd quorum — Raft consensus across CP-1 / CP-2 / CP-3" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#D9E8FB;strokeColor=#2F5597;fontSize=8.5;fontStyle=0;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1540" y="490" width="820" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="prod_ha_note" value="Production HA spans three availability zones." style="text;html=1;align=center;verticalAlign=middle;fontSize=8.5;fontStyle=2;fontColor=#C00000;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="1540" y="535" width="820" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="prod_pool_general" value="Worker Pool:
+prod-general" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FBE5D6;strokeColor=#C55A11;fontSize=8.5;fontStyle=0;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1540" y="575" width="195" height="68" as="geometry" />
+        </mxCell>
+        <mxCell id="prod_pool_payments" value="Worker Pool:
+prod-payments
+(dedicated)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF2CC;strokeColor=#BF8F00;fontSize=8.5;fontStyle=1;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1750" y="575" width="195" height="68" as="geometry" />
+        </mxCell>
+        <mxCell id="prod_pool_platform" value="Worker Pool:
+prod-platform" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FBE5D6;strokeColor=#C55A11;fontSize=8.5;fontStyle=0;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1960" y="575" width="195" height="68" as="geometry" />
+        </mxCell>
+        <mxCell id="prod_pool_security" value="Worker Pool:
+prod-security" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FBE5D6;strokeColor=#C55A11;fontSize=8.5;fontStyle=0;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="2170" y="575" width="195" height="68" as="geometry" />
+        </mxCell>
+        <mxCell id="prod_dedicated_note" value="Dedicated payment node pool reduces resource
+contention; it is not a substitute for NetworkPolicy." style="text;html=1;align=center;verticalAlign=middle;fontSize=7.5;fontStyle=2;fontColor=#C00000;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="1750" y="648" width="410" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="prod_ns_payments" value="finserv-prod-payments
+(Payments)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E2EFDA;strokeColor=#548235;fontSize=8.5;fontStyle=0;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1540" y="700" width="195" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="prod_ns_risk" value="finserv-prod-risk
+(Risk &amp; Compliance)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E2EFDA;strokeColor=#548235;fontSize=8.5;fontStyle=0;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1750" y="700" width="195" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="prod_ns_customer" value="finserv-prod-customer
+(Customer)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E2EFDA;strokeColor=#548235;fontSize=8.5;fontStyle=0;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1960" y="700" width="195" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="prod_ns_platform" value="finserv-prod-platform
+(Platform)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E2EFDA;strokeColor=#548235;fontSize=8.5;fontStyle=0;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="2170" y="700" width="195" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="no_direct_note" value="Development compromise must not provide direct production cluster access." style="text;html=1;align=center;verticalAlign=middle;fontSize=10;fontStyle=2;fontColor=#C00000;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="40" y="1010" width="2420" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="svc_0" value="DNS" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#7F7F7F;fontSize=9.5;fontStyle=1;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="70" y="1110" width="370" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="svc_1" value="Ingress Controller" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#7F7F7F;fontSize=9.5;fontStyle=1;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="470" y="1110" width="370" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="svc_2" value="Monitoring" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#7F7F7F;fontSize=9.5;fontStyle=1;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="870" y="1110" width="370" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="svc_3" value="Admission Control" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#7F7F7F;fontSize=9.5;fontStyle=1;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1270" y="1110" width="370" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="svc_4" value="Falco (runtime security)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#7F7F7F;fontSize=9.5;fontStyle=1;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1670" y="1110" width="370" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="svc_5" value="Vault (secrets mgmt)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#7F7F7F;fontSize=9.5;fontStyle=1;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="2070" y="1110" width="370" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="legend_text" value="▭ Cluster boundary — thick dashed box (separate trust domain)
+▭ Namespace boundary — green labeled box inside a cluster
+▭ Node pool — orange/gold rounded box (compute grouping)
+AZ-a / AZ-b / AZ-c — availability zone placement label
+Red dashed boundary — security / trust boundary
+→ solid arrow = application/ingress traffic path
+✗ red dashed + X = explicitly blocked / no direct access" style="text;html=1;align=left;verticalAlign=top;fontSize=8.5;whiteSpace=wrap;spacingLeft=10;spacingTop=32;" vertex="1" parent="1">
+          <mxGeometry x="1980" y="1260" width="480" height="220" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" value="HTTPS / TLS" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#333333;strokeWidth=2;endArrow=block;endFill=1;dashed=0;fontSize=9;labelBackgroundColor=#ffffff;jettySize=auto;orthogonalLoop=1;" edge="1" parent="1" source="users_internet" target="ingress_edge">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" value="env ingress" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#333333;strokeWidth=2;endArrow=block;endFill=1;dashed=0;fontSize=9;labelBackgroundColor=#ffffff;jettySize=auto;orthogonalLoop=1;" edge="1" parent="1" source="ingress_edge" target="dev_cluster">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" value="env ingress" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#333333;strokeWidth=2;endArrow=block;endFill=1;dashed=0;fontSize=9;labelBackgroundColor=#ffffff;jettySize=auto;orthogonalLoop=1;" edge="1" parent="1" source="ingress_edge" target="staging_cluster">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" value="env ingress" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#333333;strokeWidth=2;endArrow=block;endFill=1;dashed=0;fontSize=9;labelBackgroundColor=#ffffff;jettySize=auto;orthogonalLoop=1;" edge="1" parent="1" source="ingress_edge" target="prod_trust">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e5" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#2F5597;strokeWidth=1;endArrow=block;endFill=1;dashed=1;fontSize=9;labelBackgroundColor=#ffffff;jettySize=auto;orthogonalLoop=1;" edge="1" parent="1" source="prod_lb" target="prod_cp1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#2F5597;strokeWidth=1;endArrow=block;endFill=1;dashed=1;fontSize=9;labelBackgroundColor=#ffffff;jettySize=auto;orthogonalLoop=1;" edge="1" parent="1" source="prod_lb" target="prod_cp2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e7" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#2F5597;strokeWidth=1;endArrow=block;endFill=1;dashed=1;fontSize=9;labelBackgroundColor=#ffffff;jettySize=auto;orthogonalLoop=1;" edge="1" parent="1" source="prod_lb" target="prod_cp3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e8" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#2F5597;strokeWidth=1;endArrow=block;endFill=1;dashed=1;fontSize=9;labelBackgroundColor=#ffffff;jettySize=auto;orthogonalLoop=1;" edge="1" parent="1" source="prod_cp1" target="prod_etcd">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e9" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#2F5597;strokeWidth=1;endArrow=block;endFill=1;dashed=1;fontSize=9;labelBackgroundColor=#ffffff;jettySize=auto;orthogonalLoop=1;" edge="1" parent="1" source="prod_cp2" target="prod_etcd">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e10" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#2F5597;strokeWidth=1;endArrow=block;endFill=1;dashed=1;fontSize=9;labelBackgroundColor=#ffffff;jettySize=auto;orthogonalLoop=1;" edge="1" parent="1" source="prod_cp3" target="prod_etcd">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e11" value="X  no direct access" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#CC0000;strokeWidth=2;endArrow=none;endFill=0;dashed=1;fontSize=9;labelBackgroundColor=#ffffff;jettySize=auto;orthogonalLoop=1;" edge="1" parent="1" source="dev_cluster" target="staging_cluster">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e12" value="X  no direct access" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#CC0000;strokeWidth=2;endArrow=none;endFill=0;dashed=1;fontSize=9;labelBackgroundColor=#ffffff;jettySize=auto;orthogonalLoop=1;" edge="1" parent="1" source="staging_cluster" target="prod_trust">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
