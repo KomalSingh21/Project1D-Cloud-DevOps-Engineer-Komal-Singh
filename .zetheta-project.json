@@ -1,0 +1,35 @@
+{
+  "project": {
+    "number": "1D",
+    "title": "DevOps & Cloud Engineer Security Hardened Kubernetes Platform"
+  },
+  "candidate": {
+    "name": "Komal Singh",
+    "repository": "Project1D-Cloud-DevOps-Engineer-Komal-Singh"
+  },
+  "organisation": "Zetheta Algorithms Private Limited",
+  "scenario": {
+    "company": "FinServ Digital",
+    "active_users": 2400000,
+    "daily_transactions": 180000,
+    "microservices": 20,
+    "environments": [
+      "dev",
+      "staging",
+      "prod"
+    ],
+    "domains": [
+      "payments",
+      "risk-compliance",
+      "customer",
+      "platform"
+    ]
+  },
+  "status": {
+    "phase": 1,
+    "phase_name": "Foundation and Architecture",
+    "day": 1,
+    "status": "in-progress"
+  },
+  "confidentiality": "strictly-private-and-confidential"
+}
