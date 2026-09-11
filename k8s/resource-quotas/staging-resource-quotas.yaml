@@ -1,0 +1,52 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: staging-payments-quota
+  namespace: finserv-staging-payments
+spec:
+  hard:
+    requests.cpu: "20"
+    requests.memory: "40Gi"
+    limits.cpu: "40"
+    limits.memory: "80Gi"
+    pods: "60"
+---
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: staging-risk-quota
+  namespace: finserv-staging-risk
+spec:
+  hard:
+    requests.cpu: "20"
+    requests.memory: "40Gi"
+    limits.cpu: "40"
+    limits.memory: "80Gi"
+    pods: "60"
+---
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: staging-customer-quota
+  namespace: finserv-staging-customer
+spec:
+  hard:
+    requests.cpu: "20"
+    requests.memory: "40Gi"
+    limits.cpu: "40"
+    limits.memory: "80Gi"
+    pods: "60"
+---
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: staging-platform-quota
+  namespace: finserv-staging-platform
+spec:
+  hard:
+    requests.cpu: "20"
+    requests.memory: "40Gi"
+    limits.cpu: "40"
+    limits.memory: "80Gi"
+    pods: "60"
+---

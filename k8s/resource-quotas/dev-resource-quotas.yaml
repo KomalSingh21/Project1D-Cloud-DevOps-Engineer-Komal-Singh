@@ -1,0 +1,52 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: dev-payments-quota
+  namespace: finserv-dev-payments
+spec:
+  hard:
+    requests.cpu: "12"
+    requests.memory: "24Gi"
+    limits.cpu: "24"
+    limits.memory: "48Gi"
+    pods: "40"
+---
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: dev-risk-quota
+  namespace: finserv-dev-risk
+spec:
+  hard:
+    requests.cpu: "12"
+    requests.memory: "24Gi"
+    limits.cpu: "24"
+    limits.memory: "48Gi"
+    pods: "40"
+---
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: dev-customer-quota
+  namespace: finserv-dev-customer
+spec:
+  hard:
+    requests.cpu: "12"
+    requests.memory: "24Gi"
+    limits.cpu: "24"
+    limits.memory: "48Gi"
+    pods: "40"
+---
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: dev-platform-quota
+  namespace: finserv-dev-platform
+spec:
+  hard:
+    requests.cpu: "12"
+    requests.memory: "24Gi"
+    limits.cpu: "24"
+    limits.memory: "48Gi"
+    pods: "40"
+---
