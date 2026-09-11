@@ -1,0 +1,504 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: namespace-admin-payments
+  namespace: finserv-dev-payments
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: finserv-namespace-administrator
+subjects:
+- kind: Group
+  name: finserv:dev:payments:namespace-admins
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: developer-payments
+  namespace: finserv-dev-payments
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: finserv-developer-nonprod
+subjects:
+- kind: Group
+  name: finserv:dev:payments:developers
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: cicd-deployer
+  namespace: finserv-dev-payments
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: finserv-cicd-deployer
+subjects:
+- kind: ServiceAccount
+  name: cicd-deployer
+  namespace: finserv-dev-payments
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: namespace-admin-risk
+  namespace: finserv-dev-risk
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: finserv-namespace-administrator
+subjects:
+- kind: Group
+  name: finserv:dev:risk:namespace-admins
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: developer-risk
+  namespace: finserv-dev-risk
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: finserv-developer-nonprod
+subjects:
+- kind: Group
+  name: finserv:dev:risk:developers
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: cicd-deployer
+  namespace: finserv-dev-risk
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: finserv-cicd-deployer
+subjects:
+- kind: ServiceAccount
+  name: cicd-deployer
+  namespace: finserv-dev-risk
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: namespace-admin-customer
+  namespace: finserv-dev-customer
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: finserv-namespace-administrator
+subjects:
+- kind: Group
+  name: finserv:dev:customer:namespace-admins
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: developer-customer
+  namespace: finserv-dev-customer
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: finserv-developer-nonprod
+subjects:
+- kind: Group
+  name: finserv:dev:customer:developers
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: cicd-deployer
+  namespace: finserv-dev-customer
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: finserv-cicd-deployer
+subjects:
+- kind: ServiceAccount
+  name: cicd-deployer
+  namespace: finserv-dev-customer
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: namespace-admin-platform
+  namespace: finserv-dev-platform
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: finserv-namespace-administrator
+subjects:
+- kind: Group
+  name: finserv:dev:platform:namespace-admins
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: developer-platform
+  namespace: finserv-dev-platform
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: finserv-developer-nonprod
+subjects:
+- kind: Group
+  name: finserv:dev:platform:developers
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: cicd-deployer
+  namespace: finserv-dev-platform
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: finserv-cicd-deployer
+subjects:
+- kind: ServiceAccount
+  name: cicd-deployer
+  namespace: finserv-dev-platform
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: namespace-admin-payments
+  namespace: finserv-staging-payments
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: finserv-namespace-administrator
+subjects:
+- kind: Group
+  name: finserv:staging:payments:namespace-admins
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: developer-payments
+  namespace: finserv-staging-payments
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: finserv-developer-nonprod
+subjects:
+- kind: Group
+  name: finserv:staging:payments:developers
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: cicd-deployer
+  namespace: finserv-staging-payments
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: finserv-cicd-deployer
+subjects:
+- kind: ServiceAccount
+  name: cicd-deployer
+  namespace: finserv-staging-payments
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: namespace-admin-risk
+  namespace: finserv-staging-risk
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: finserv-namespace-administrator
+subjects:
+- kind: Group
+  name: finserv:staging:risk:namespace-admins
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: developer-risk
+  namespace: finserv-staging-risk
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: finserv-developer-nonprod
+subjects:
+- kind: Group
+  name: finserv:staging:risk:developers
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: cicd-deployer
+  namespace: finserv-staging-risk
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: finserv-cicd-deployer
+subjects:
+- kind: ServiceAccount
+  name: cicd-deployer
+  namespace: finserv-staging-risk
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: namespace-admin-customer
+  namespace: finserv-staging-customer
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: finserv-namespace-administrator
+subjects:
+- kind: Group
+  name: finserv:staging:customer:namespace-admins
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: developer-customer
+  namespace: finserv-staging-customer
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: finserv-developer-nonprod
+subjects:
+- kind: Group
+  name: finserv:staging:customer:developers
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: cicd-deployer
+  namespace: finserv-staging-customer
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: finserv-cicd-deployer
+subjects:
+- kind: ServiceAccount
+  name: cicd-deployer
+  namespace: finserv-staging-customer
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: namespace-admin-platform
+  namespace: finserv-staging-platform
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: finserv-namespace-administrator
+subjects:
+- kind: Group
+  name: finserv:staging:platform:namespace-admins
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: developer-platform
+  namespace: finserv-staging-platform
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: finserv-developer-nonprod
+subjects:
+- kind: Group
+  name: finserv:staging:platform:developers
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: cicd-deployer
+  namespace: finserv-staging-platform
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: finserv-cicd-deployer
+subjects:
+- kind: ServiceAccount
+  name: cicd-deployer
+  namespace: finserv-staging-platform
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: namespace-admin-payments
+  namespace: finserv-prod-payments
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: finserv-namespace-administrator
+subjects:
+- kind: Group
+  name: finserv:prod:payments:namespace-admins
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: developer-payments
+  namespace: finserv-prod-payments
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: finserv-developer-prod
+subjects:
+- kind: Group
+  name: finserv:prod:payments:developers
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: cicd-deployer
+  namespace: finserv-prod-payments
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: finserv-cicd-deployer
+subjects:
+- kind: ServiceAccount
+  name: cicd-deployer
+  namespace: finserv-prod-payments
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: namespace-admin-risk
+  namespace: finserv-prod-risk
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: finserv-namespace-administrator
+subjects:
+- kind: Group
+  name: finserv:prod:risk:namespace-admins
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: developer-risk
+  namespace: finserv-prod-risk
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: finserv-developer-prod
+subjects:
+- kind: Group
+  name: finserv:prod:risk:developers
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: cicd-deployer
+  namespace: finserv-prod-risk
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: finserv-cicd-deployer
+subjects:
+- kind: ServiceAccount
+  name: cicd-deployer
+  namespace: finserv-prod-risk
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: namespace-admin-customer
+  namespace: finserv-prod-customer
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: finserv-namespace-administrator
+subjects:
+- kind: Group
+  name: finserv:prod:customer:namespace-admins
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: developer-customer
+  namespace: finserv-prod-customer
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: finserv-developer-prod
+subjects:
+- kind: Group
+  name: finserv:prod:customer:developers
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: cicd-deployer
+  namespace: finserv-prod-customer
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: finserv-cicd-deployer
+subjects:
+- kind: ServiceAccount
+  name: cicd-deployer
+  namespace: finserv-prod-customer
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: namespace-admin-platform
+  namespace: finserv-prod-platform
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: finserv-namespace-administrator
+subjects:
+- kind: Group
+  name: finserv:prod:platform:namespace-admins
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: developer-platform
+  namespace: finserv-prod-platform
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: finserv-developer-prod
+subjects:
+- kind: Group
+  name: finserv:prod:platform:developers
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: cicd-deployer
+  namespace: finserv-prod-platform
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: finserv-cicd-deployer
+subjects:
+- kind: ServiceAccount
+  name: cicd-deployer
+  namespace: finserv-prod-platform
+---
