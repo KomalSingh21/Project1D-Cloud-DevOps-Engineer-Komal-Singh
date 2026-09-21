@@ -4,6 +4,8 @@
 **Project:** DevOps & Cloud Engineer — Security Hardened Kubernetes Platform  
 **Scenario:** FinServ Digital  
 
+
+
 ## Phase 1 — Foundation and Architecture
 
 | Day | Focus | Deliverables | Status |
@@ -30,10 +32,16 @@
 | Day | Focus | Deliverables | Status |
 |---|---|---|---|
 | 11 | Developer onboarding guide, Helm templates and CI/CD templates | Artifacts prepared; walkthrough documented |
-| 12 | Platform operations runbook, HPA configurations and dashboard specifications | Artifacts prepared; scale test pending |
-| 13 | PCI-DSS mapping, audit evidence package, compliance checklist and YAML validation report | Artifacts prepared; validation and evidence collection pending |
+| 12 | Platform operations runbook, HPA configurations and dashboard specifications | Artifacts prepared|
+| 13 | PCI-DSS mapping, audit evidence package, compliance checklist and YAML validation report | Artifacts prepared; validation and evidence complete|
 
 
+## Phase 4 — Validation
+
+| Day | Focus | Deliverables | Status |
+|---|---|---|---|
+| Day 14 | Integration review, manifest validation, documentation review, cleanup | final command execution | complete |
+| Day 15 | README, metadata, topics, commit verification, transfer preparation |  final repository actions | complete |
 
 
 ## Phase 1 Review Milestone

@@ -1,26 +1,27 @@
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: payment-gateway
+  name: payment-gateway-vault-example
   namespace: finserv-prod-payments
   labels:
-    app.kubernetes.io/name: payment-gateway
+    app.kubernetes.io/name: payment-gateway-vault-example
     finserv.io/domain: payments
+    example.finserv.io/deployable: "false"
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: payment-gateway
+  name: payment-gateway-vault-example
   namespace: finserv-prod-payments
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app.kubernetes.io/name: payment-gateway
+      app.kubernetes.io/name: payment-gateway-vault-example
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: payment-gateway
+        app.kubernetes.io/name: payment-gateway-vault-example
         finserv.io/domain: payments
         finserv.io/environment: prod
       annotations:
@@ -35,9 +36,9 @@ spec:
           }
           {{- end }}
     spec:
-      serviceAccountName: payment-gateway
+      serviceAccountName: payment-gateway-vault-example
       containers:
-        - name: payment-gateway
+        - name: payment-gateway-vault-example
           image: ghcr.io/finserv-digital/payment-gateway@sha256:REPLACE_WITH_RELEASE_DIGEST
           ports:
             - name: https

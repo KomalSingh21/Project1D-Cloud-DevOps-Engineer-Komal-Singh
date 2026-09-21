@@ -5,7 +5,8 @@ metadata:
   labels:
     finserv.io/environment: dev
     finserv.io/domain: payments
-    pod-security.kubernetes.io/enforce: baseline
+    istio-injection: enabled
+    pod-security.kubernetes.io/enforce: restricted
     pod-security.kubernetes.io/audit: restricted
     pod-security.kubernetes.io/warn: restricted
 ---
@@ -16,7 +17,8 @@ metadata:
   labels:
     finserv.io/environment: dev
     finserv.io/domain: risk
-    pod-security.kubernetes.io/enforce: baseline
+    istio-injection: enabled
+    pod-security.kubernetes.io/enforce: restricted
     pod-security.kubernetes.io/audit: restricted
     pod-security.kubernetes.io/warn: restricted
 ---
@@ -27,7 +29,8 @@ metadata:
   labels:
     finserv.io/environment: dev
     finserv.io/domain: customer
-    pod-security.kubernetes.io/enforce: baseline
+    istio-injection: enabled
+    pod-security.kubernetes.io/enforce: restricted
     pod-security.kubernetes.io/audit: restricted
     pod-security.kubernetes.io/warn: restricted
 ---
@@ -38,6 +41,7 @@ metadata:
   labels:
     finserv.io/environment: dev
     finserv.io/domain: platform
-    pod-security.kubernetes.io/enforce: baseline
+    istio-injection: enabled
+    pod-security.kubernetes.io/enforce: restricted
     pod-security.kubernetes.io/audit: restricted
     pod-security.kubernetes.io/warn: restricted

@@ -25,11 +25,15 @@
       "platform"
     ]
   },
-  "status": {
-    "phase": 1,
-    "phase_name": "Foundation and Architecture",
-    "day": 1,
-    "status": "in-progress"
+  "confidentiality": "strictly-private-and-confidential",
+  "delivery": {
+    "status": "submission-ready-pending-final-validation",
+    "primary_branch": "main"
   },
-  "confidentiality": "strictly-private-and-confidential"
+  "canonical_locations": {
+    "helm": "charts/service-template/",
+    "hpa": "k8s/autoscaling/",
+    "falco_rules": "k8s/falco/",
+    "kubernetes_audit_policy": "k8s/audit/falco-rules/audit-policy.yaml"
+  }
 }

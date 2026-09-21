@@ -5,6 +5,7 @@ metadata:
   labels:
     finserv.io/environment: staging
     finserv.io/domain: payments
+    istio-injection: enabled
     pod-security.kubernetes.io/enforce: restricted
     pod-security.kubernetes.io/audit: restricted
     pod-security.kubernetes.io/warn: restricted
@@ -16,6 +17,7 @@ metadata:
   labels:
     finserv.io/environment: staging
     finserv.io/domain: risk
+    istio-injection: enabled
     pod-security.kubernetes.io/enforce: restricted
     pod-security.kubernetes.io/audit: restricted
     pod-security.kubernetes.io/warn: restricted
@@ -27,6 +29,7 @@ metadata:
   labels:
     finserv.io/environment: staging
     finserv.io/domain: customer
+    istio-injection: enabled
     pod-security.kubernetes.io/enforce: restricted
     pod-security.kubernetes.io/audit: restricted
     pod-security.kubernetes.io/warn: restricted
@@ -38,6 +41,7 @@ metadata:
   labels:
     finserv.io/environment: staging
     finserv.io/domain: platform
+    istio-injection: enabled
     pod-security.kubernetes.io/enforce: restricted
     pod-security.kubernetes.io/audit: restricted
     pod-security.kubernetes.io/warn: restricted
