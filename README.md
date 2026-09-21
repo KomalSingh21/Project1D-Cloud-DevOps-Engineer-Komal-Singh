@@ -139,20 +139,4 @@ Key principles:
 - Compliance evidence will be traceable to implemented controls.
 - No real credentials, secrets, customer data, payment data, or production access information will be committed.
 
-## 7. Phase Roadmap
 
-| Phase | Days | Focus |
-|---|---:|---|
-| Phase 1 | 1–5 | Foundation and Architecture |
-| Phase 2 | 6–10 | Security Deep Dive and Integration |
-| Phase 3 | 11–15 | Documentation, Testing and Submission |
-
-## 8. Current Status
-
-**Day 1 — Repository and Environment Initialisation**
-
-The repository structure has been established. Tool verification and project documentation are being completed before platform architecture implementation begins.
-
----
-
-**Confidentiality Notice:** This repository contains project work subject to the Zetheta project confidentiality and ownership requirements. It must remain private and must not be publicly circulated.
