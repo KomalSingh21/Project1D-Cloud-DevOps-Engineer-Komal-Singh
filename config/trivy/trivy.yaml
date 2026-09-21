@@ -1,0 +1,20 @@
+# FinServ Digital Trivy policy configuration
+# Intended for CI image scanning.
+
+scan:
+  scanners:
+    - vuln
+    - secret
+
+vulnerability:
+  severity-source:
+    - auto
+  ignore-unfixed: false
+
+severity:
+  - HIGH
+  - CRITICAL
+
+format: json
+report: all
+exit-code: 1

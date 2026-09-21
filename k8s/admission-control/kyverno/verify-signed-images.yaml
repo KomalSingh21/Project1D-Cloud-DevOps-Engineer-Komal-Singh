@@ -1,0 +1,34 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: finserv-verify-signed-images
+  annotations:
+    policies.kyverno.io/title: Verify FinServ container signatures
+    policies.kyverno.io/category: Software Supply Chain Security
+    policies.kyverno.io/severity: critical
+spec:
+  validationFailureAction: Enforce
+  background: false
+  webhookConfiguration:
+    failurePolicy: Fail
+    timeoutSeconds: 30
+  rules:
+    - name: verify-finserv-image
+      match:
+        any:
+          - resources:
+              kinds:
+                - Pod
+      verifyImages:
+        - imageReferences:
+            - "ghcr.io/finserv-digital/*"
+          mutateDigest: true
+          verifyDigest: true
+          failureAction: Enforce
+          attestors:
+            - entries:
+                - keyless:
+                    issuer: "https://token.actions.githubusercontent.com"
+                    subject: "https://github.com/FinServ-Digital/*/.github/workflows/*"
+# Replace the issuer/subject with the organization's approved CI identity.
+# This policy is a production design artifact, not a live signing identity.
