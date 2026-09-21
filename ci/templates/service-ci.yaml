@@ -1,0 +1,64 @@
+name: service-ci
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+  packages: write
+  id-token: write
+  security-events: write
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run tests
+        run: ./scripts/test.sh
+      - name: Helm lint
+        run: helm lint charts/service-template
+      - name: Render Helm chart
+        run: helm template example charts/service-template > rendered.yaml
+
+  scan:
+    needs: validate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build image
+        run: docker build --file examples/payment-gateway/Dockerfile --tag "$IMAGE_REF" .
+        env:
+          IMAGE_REF: ghcr.io/finserv-digital/example-service:${{ github.sha }}
+      - name: Trivy scan
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: ghcr.io/finserv-digital/example-service:${{ github.sha }}
+          severity: HIGH,CRITICAL
+          ignore-unfixed: false
+          exit-code: '1'
+          scanners: vuln,secret
+
+  sign:
+    needs: scan
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Sign image with Cosign
+        run: |
+          echo "Configure keyless OIDC signing and registry authentication here."
+          echo "Do not replace this step with an unsigned production push."
+
+  deploy-dev:
+    needs: sign
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment: development
+    steps:
+      - uses: actions/checkout@v4
+      - name: Deploy through approved runner
+        run: |
+          echo "Configure authenticated deployment runner and approved cluster context."
+          echo "Production deployment must use a separate protected environment."
