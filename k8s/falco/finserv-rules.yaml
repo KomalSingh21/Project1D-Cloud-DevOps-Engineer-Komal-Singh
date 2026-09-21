@@ -1,0 +1,67 @@
+# FinServ Digital custom Falco rules.
+# Validate against the Falco version deployed by the platform team.
+# These rules are deliberately narrow starting points and require environment tuning.
+
+- rule: FinServ shell in production container
+  desc: Detect an interactive shell in a production FinServ application container.
+  condition: >
+    spawned_process and container and
+    k8s.ns.name startswith "finserv-prod-" and
+    shell_procs and proc.tty != 0
+  output: >
+    FinServ production container shell detected
+    (user=%user.name ns=%k8s.ns.name pod=%k8s.pod.name
+     container=%container.name shell=%proc.name cmd=%proc.cmdline)
+  priority: CRITICAL
+  tags: [finserv, kubernetes, production, execution]
+
+- rule: FinServ network discovery tool in development
+  desc: Detect common network discovery tools inside a FinServ development workload.
+  condition: >
+    spawned_process and container and
+    k8s.ns.name startswith "finserv-dev-" and
+    proc.name in (nmap, masscan, nc)
+  output: >
+    FinServ development network discovery tool executed
+    (user=%user.name ns=%k8s.ns.name pod=%k8s.pod.name
+     process=%proc.name cmd=%proc.cmdline)
+  priority: WARNING
+  tags: [finserv, kubernetes, discovery, pci_dss]
+
+- rule: FinServ Kubernetes client inside application container
+  desc: Detect kubectl or similar Kubernetes client tooling inside an application container.
+  condition: >
+    spawned_process and container and
+    k8s.ns.name startswith "finserv-" and
+    proc.name in (kubectl, crictl)
+  output: >
+    Kubernetes client executed inside FinServ application container
+    (user=%user.name ns=%k8s.ns.name pod=%k8s.pod.name
+     process=%proc.name cmd=%proc.cmdline)
+  priority: CRITICAL
+  tags: [finserv, kubernetes, execution, privilege_escalation]
+
+- rule: FinServ suspicious outbound tooling
+  desc: Detect command-line network clients from development workloads as an exfiltration signal.
+  condition: >
+    outbound and container and
+    k8s.ns.name startswith "finserv-dev-" and
+    proc.name in (curl, wget, nc)
+  output: >
+    Suspicious outbound network tooling from FinServ development workload
+    (ns=%k8s.ns.name pod=%k8s.pod.name process=%proc.name
+     connection=%fd.name cmd=%proc.cmdline)
+  priority: HIGH
+  tags: [finserv, kubernetes, network, exfiltration]
+
+- rule: FinServ sensitive environment inspection
+  desc: Detect direct inspection of process environment files from a FinServ container.
+  condition: >
+    open_read and container and
+    fd.name glob /proc/*/environ and
+    k8s.ns.name startswith "finserv-"
+  output: >
+    FinServ process environment inspected
+    (ns=%k8s.ns.name pod=%k8s.pod.name process=%proc.name file=%fd.name)
+  priority: WARNING
+  tags: [finserv, kubernetes, credentials, discovery]
