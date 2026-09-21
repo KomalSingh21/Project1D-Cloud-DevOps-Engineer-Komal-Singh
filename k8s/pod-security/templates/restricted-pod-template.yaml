@@ -1,3 +1,5 @@
+# ILLUSTRATIVE TEMPLATE ONLY - NOT DEPLOYABLE AS-IS.
+# Replace the placeholder image digest with an approved immutable digest.
 # Restricted Pod Security Standard template.
 
 apiVersion: v1

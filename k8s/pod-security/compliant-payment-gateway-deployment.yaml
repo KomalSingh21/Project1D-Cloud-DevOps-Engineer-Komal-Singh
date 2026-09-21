@@ -1,3 +1,5 @@
+# NON-DEPLOYABLE CASE STUDY MANIFEST
+# Replace the placeholder image digest with an approved immutable digest before production deployment.
 apiVersion: apps/v1
 kind: Deployment
 metadata:

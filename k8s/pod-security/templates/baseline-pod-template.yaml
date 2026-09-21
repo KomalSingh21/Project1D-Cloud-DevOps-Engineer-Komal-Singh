@@ -1,3 +1,5 @@
+# ILLUSTRATIVE TEMPLATE ONLY - NOT DEPLOYABLE AS-IS.
+# Replace the placeholder image digest with an approved immutable digest.
 # Baseline security-context template.
 # Use only where compatibility requires capabilities allowed by Baseline.
 # Production application workloads should target Restricted.
