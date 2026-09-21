@@ -1,0 +1,135 @@
+# FinServ Digital — Pod Security Standards namespace labels
+# Restricted is the target workload security tier.
+# Audit and warn are retained to expose violations during rollout.
+
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: finserv-dev-payments
+  labels:
+    finserv.io/environment: dev
+    finserv.io/domain: payments
+    pod-security.kubernetes.io/enforce: restricted
+    pod-security.kubernetes.io/audit: restricted
+    pod-security.kubernetes.io/warn: restricted
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: finserv-dev-risk
+  labels:
+    finserv.io/environment: dev
+    finserv.io/domain: risk
+    pod-security.kubernetes.io/enforce: restricted
+    pod-security.kubernetes.io/audit: restricted
+    pod-security.kubernetes.io/warn: restricted
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: finserv-dev-customer
+  labels:
+    finserv.io/environment: dev
+    finserv.io/domain: customer
+    pod-security.kubernetes.io/enforce: restricted
+    pod-security.kubernetes.io/audit: restricted
+    pod-security.kubernetes.io/warn: restricted
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: finserv-dev-platform
+  labels:
+    finserv.io/environment: dev
+    finserv.io/domain: platform
+    pod-security.kubernetes.io/enforce: restricted
+    pod-security.kubernetes.io/audit: restricted
+    pod-security.kubernetes.io/warn: restricted
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: finserv-staging-payments
+  labels:
+    finserv.io/environment: staging
+    finserv.io/domain: payments
+    pod-security.kubernetes.io/enforce: restricted
+    pod-security.kubernetes.io/audit: restricted
+    pod-security.kubernetes.io/warn: restricted
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: finserv-staging-risk
+  labels:
+    finserv.io/environment: staging
+    finserv.io/domain: risk
+    pod-security.kubernetes.io/enforce: restricted
+    pod-security.kubernetes.io/audit: restricted
+    pod-security.kubernetes.io/warn: restricted
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: finserv-staging-customer
+  labels:
+    finserv.io/environment: staging
+    finserv.io/domain: customer
+    pod-security.kubernetes.io/enforce: restricted
+    pod-security.kubernetes.io/audit: restricted
+    pod-security.kubernetes.io/warn: restricted
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: finserv-staging-platform
+  labels:
+    finserv.io/environment: staging
+    finserv.io/domain: platform
+    pod-security.kubernetes.io/enforce: restricted
+    pod-security.kubernetes.io/audit: restricted
+    pod-security.kubernetes.io/warn: restricted
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: finserv-prod-payments
+  labels:
+    finserv.io/environment: prod
+    finserv.io/domain: payments
+    pod-security.kubernetes.io/enforce: restricted
+    pod-security.kubernetes.io/audit: restricted
+    pod-security.kubernetes.io/warn: restricted
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: finserv-prod-risk
+  labels:
+    finserv.io/environment: prod
+    finserv.io/domain: risk
+    pod-security.kubernetes.io/enforce: restricted
+    pod-security.kubernetes.io/audit: restricted
+    pod-security.kubernetes.io/warn: restricted
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: finserv-prod-customer
+  labels:
+    finserv.io/environment: prod
+    finserv.io/domain: customer
+    pod-security.kubernetes.io/enforce: restricted
+    pod-security.kubernetes.io/audit: restricted
+    pod-security.kubernetes.io/warn: restricted
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: finserv-prod-platform
+  labels:
+    finserv.io/environment: prod
+    finserv.io/domain: platform
+    pod-security.kubernetes.io/enforce: restricted
+    pod-security.kubernetes.io/audit: restricted
+    pod-security.kubernetes.io/warn: restricted

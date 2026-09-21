@@ -1,0 +1,21 @@
+# Restricted Pod Security Standard template.
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: restricted-template
+spec:
+  securityContext:
+    runAsNonRoot: true
+    seccompProfile:
+      type: RuntimeDefault
+  containers:
+    - name: app
+      image: ghcr.io/finserv-digital/example@sha256:REPLACE_WITH_DIGEST
+      securityContext:
+        runAsNonRoot: true
+        allowPrivilegeEscalation: false
+        readOnlyRootFilesystem: true
+        capabilities:
+          drop:
+            - ALL

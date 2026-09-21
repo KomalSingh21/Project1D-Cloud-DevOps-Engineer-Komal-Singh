@@ -1,0 +1,20 @@
+# Baseline security-context template.
+# Use only where compatibility requires capabilities allowed by Baseline.
+# Production application workloads should target Restricted.
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: baseline-template
+spec:
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+  containers:
+    - name: app
+      image: ghcr.io/finserv-digital/example@sha256:REPLACE_WITH_DIGEST
+      securityContext:
+        allowPrivilegeEscalation: false
+        capabilities:
+          drop:
+            - ALL

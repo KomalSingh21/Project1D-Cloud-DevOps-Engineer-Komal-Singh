@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: payment-gateway
+  namespace: finserv-prod-payments
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: payment-gateway
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: payment-gateway
+        finserv.io/domain: payments
+        finserv.io/environment: prod
+    spec:
+      serviceAccountName: payment-gateway
+      automountServiceAccountToken: true
+      securityContext:
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: payment-gateway
+          image: ghcr.io/finserv-digital/payment-gateway@sha256:REPLACE_WITH_RELEASE_DIGEST
+          ports:
+            - name: https
+              containerPort: 8443
+          securityContext:
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
+          readinessProbe:
+            httpGet:
+              path: /health/ready
+              port: https
+          livenessProbe:
+            httpGet:
+              path: /health/live
+              port: https
