@@ -1,0 +1,20 @@
+apiVersion: security.istio.io/v1
+kind: PeerAuthentication
+metadata:
+  name: finserv-mesh-strict-mtls
+  namespace: istio-system
+spec:
+  mtls:
+    mode: STRICT
+# Mesh-wide strict mTLS. Confirm the Istio root namespace before applying.
+---
+apiVersion: networking.istio.io/v1
+kind: DestinationRule
+metadata:
+  name: transaction-processor-mtls
+  namespace: finserv-prod-payments
+spec:
+  host: transaction-processor.finserv-prod-payments.svc.cluster.local
+  trafficPolicy:
+    tls:
+      mode: ISTIO_MUTUAL

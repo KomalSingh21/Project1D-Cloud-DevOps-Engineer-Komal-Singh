@@ -1,0 +1,59 @@
+apiVersion: audit.k8s.io/v1
+kind: Policy
+
+# Avoid duplicate low-value RequestReceived events.
+omitStages:
+  - RequestReceived
+
+rules:
+  # Never record request/response bodies for Secret objects.
+  - level: Metadata
+    resources:
+      - group: ""
+        resources:
+          - secrets
+
+  # High-value RBAC changes should retain request and response context.
+  - level: RequestResponse
+    resources:
+      - group: rbac.authorization.k8s.io
+        resources:
+          - roles
+          - rolebindings
+          - clusterroles
+          - clusterrolebindings
+
+  # Network policy changes are security-significant.
+  - level: RequestResponse
+    resources:
+      - group: networking.k8s.io
+        resources:
+          - networkpolicies
+
+  # Workload creation/update/deletion is security relevant.
+  - level: RequestResponse
+    resources:
+      - group: apps
+        resources:
+          - deployments
+          - daemonsets
+          - statefulsets
+          - replicasets
+
+  # Namespace lifecycle.
+  - level: RequestResponse
+    resources:
+      - group: ""
+        resources:
+          - namespaces
+
+  # Admission/security policy objects.
+  - level: RequestResponse
+    resources:
+      - group: kyverno.io
+        resources:
+          - clusterpolicies
+          - policies
+
+  # Everything else gets metadata-level audit coverage.
+  - level: Metadata
